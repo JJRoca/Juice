@@ -1,6 +1,0 @@
-# Archivos de bytecode de Python
-__pycache__/
-*.pyc
-
-# Directorio del entorno virtual (si usas virtualenv o venv)
-venv/
