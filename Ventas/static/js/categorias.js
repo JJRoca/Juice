@@ -192,9 +192,6 @@ $(document).ready(function() {
                 };
                 detalles.push(clienteData);
             }
-            // else if ($('#inputNit').val().trim() !== '') {
-            //     nitCliente = $('#inputNit').val().trim();
-            // }
             else if (nombreCliente === '' && nitCliente === '' && telefonoCliente === '') {
                 // No se ingresaron los datos del cliente, guardar la venta sin el cliente asociado
                 detalles.push({});
@@ -223,7 +220,7 @@ $(document).ready(function() {
             });
             console.log("Tabla actualizada con éxito");
         }
-
+        //solicitud a la url guardar_detalles para enviar los datos del front al servidor y se guarde en la db
         $.ajax({
             url: '/guardar_detalles/',
             method: 'POST',
@@ -236,7 +233,7 @@ $(document).ready(function() {
                 nit_cliente: nitCliente
             }),
             success: function(response) {
-                console.log("Responseeeeeee", response);
+                console.log("Responseeeeeee", response.message);
                 console.log('Detalles guardados exitosamente');
                 // Actualiza la tabla de detalles en la plantilla con los nuevos detalles
                 console.log("Detalles: ", detalles);
@@ -247,7 +244,7 @@ $(document).ready(function() {
             }
         });
 
-        // Agrega una solicitud Ajax adicional para cargar la tabla en detalle_factura.html
+        //solicitud Ajax adicional para cargar la tabla en detalle_factura.html
         $.ajax({
             url: '/detalle_factura/',
             method: 'GET',
@@ -352,8 +349,6 @@ $(document).ready(function() {
                             listaDetalles.appendChild(newRow);
                         }
                     });
-
-                    // Resto del código...
                     // Función para calcular y actualizar el total general
                     function actualizarTotalGeneral() {
                         var totalGeneral = 0;
@@ -368,9 +363,6 @@ $(document).ready(function() {
                         var totalGeneralCell = document.getElementById('total-general');
                         totalGeneralCell.textContent = totalGeneral.toFixed(2) + ' Bs';
                     }
-
-                    // Resto del código...
-                    // Resto del código...
                 });
                 $('#tabla-detalles_pedido').html(response);
                 console.log('Solicitud AJAX exitosa', $('#tabla-detalles_pedido').html());

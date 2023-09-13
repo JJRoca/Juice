@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-
 <style>
     thead tr th{
         padding: 8px;
@@ -21,9 +20,10 @@
         display: none;
     }
 </style>
+    <h1 id="lista1">Lista de categorías</h1>
     {% for pedido, detalles in detalles_por_pedido.items %}
         <h3>Pedido {{ forloop.counter }}</h3>
-        <table id='tabla-detalles_pedido'>
+        <table id="tabla-detalles_pedido">
             <tr id="header1">
                 <th>Producto</th>
                 <th>Ingrediente</th>
@@ -48,8 +48,10 @@
             {% endfor %}
         </table>
     {% endfor %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <script>    
+    <script src="{% static 'js/ventas/categorias.js' %}"></script> 
+    <script>
         function despachar(detalleId) {
             fetch(`/despachar/${detalleId}/`)
                 .then(response => response.json())
@@ -60,6 +62,19 @@
                         if (detalleRow) {
                             detalleRow.remove();
                         }
+    
+                        // Verificar si no quedan filas en la tabla
+                        let tablaDetalles = document.getElementById('tabla-detalles_pedido');
+                        if (tablaDetalles.rows.length <= 1) {
+                            // Si no quedan filas en la tabla, eliminar la tabla completa
+                            tablaDetalles.parentNode.removeChild(tablaDetalles);
+    
+                            // // También puedes eliminar el encabezado si lo deseas
+                            // let encabezado = document.getElementById('header1');
+                            // if (encabezado) {
+                            //     encabezado.remove();
+                            // }
+                        }
                     }
                 })
                 .catch(error => {
@@ -67,5 +82,6 @@
                 });
         }
     </script>
-    {% comment %} <script src='{% %}'>     {% endcomment %}
+    
+    
 {% endblock %}
