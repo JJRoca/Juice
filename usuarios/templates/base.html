@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+	<link href="{% static 'DataTables/datatables.min.css' %}" rel="stylesheet"/>
+	<script src="{% static 'DataTables/datatables.min.js' %}"></script>
+	<script src="cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body onload="startTime()">
+    <div class="modal">
+        <div class="bodyModal">
+        </div>
+    </div>
+    <div class="modal_In">
+        <div class="bodyModal_In">
+        </div>
+    </div>
+    
+    <div class="header_principal">
+		<div class="header">
+			<img src="{%static 'img/LogoMakr-7WboL9.png'%}" alt="img">
+			<h1>Sistema de Administración</h1>
+			<div class="optionsBar">
+				<p><i class="fa-solid fa-calendar"></i> Bolivia-Cbba, </p>
+				<span>|</span>
+				<span class="user"><i class="fa-solid fa-user"></i> </span>
+				{{ request.user.username }}
+				<a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+				
+			</div>
+		</div>
+
+		<div class="topnav" id="myTopnav">
+			<a class="active" href="{% url 'index' %}"><i class="fa-solid fa-house-chimney"></i> Inicio</a>
+		
+				<div class="dropdown">
+				<button class="dropbtn"><i class="fa-solid fa-clipboard-user"></i> Usuarios
+				<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<a href="{% url 'register_user' %}"><i class="fa-solid fa-plus"></i> Nuevo Usuario</a>
+					<hr>
+					<a href="{% url 'usuarios' %}"><i class="fa-solid fa-list-check"></i> Lista de Usuarios</a>
+				</div>
+				
+
+			</div>
+			{% if perms.usuarios.view_producto %}
+		<div class="dropdown">
+			<button class="dropbtn"><i class="fa-solid fa-users"></i> Clientes
+			<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content">
+				<a href="#"><i class="fa-solid fa-plus"></i> Nuevo Cliente</a>
+				<hr>
+				<a href="#"><i class="fa-solid fa-list-check"></i> Lista de Clientes</a>
+			</div>
+		</div>
+		{% endif %}
+		
+		{% if perms.ventas.view_producto %}
+		<div class="dropdown">
+			<button class="dropbtn"><i class="fa-solid fa-building"></i> Proveedores
+			<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content">
+				<a href="#"><i class="fa-solid fa-building-user"></i> Nuevo Proveedor</a>
+				<hr>
+				<a href="#"><i class="fa-solid fa-list-check"></i> Lista de Proveedores</a>
+			</div>
+		</div>
+		{% endif %}
+
+		<div class="dropdown">
+		<button class="dropbtn"><i class="fa-solid fa-box"></i> Productos
+			<i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-content">
+			<a href="#"><i class="fa-solid fa-plus"></i> Nuevo Producto Externo</a>
+			<a href="#"><i class="fa-solid fa-square-up-right"></i> Lista de Productos Externos</a>
+			<hr>
+			<a href="#"><i class="fa-solid fa-plus"></i> Nuevo Producto Interno</a>
+			<a href="#"><i class="fa-solid fa-square-up-right"></i> Lista de Productos Internos</a>
+		</div>
+		</div>
+  			
+		<div class="dropdown">
+            <button class="dropbtn"><i class="fa-solid fa-box-open"></i> Ventas
+			<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content">
+			<a href="{% url 'listar_categorias' %}"><i class="fa-solid fa-plus"></i> Nuevas Ventas</a>
+			<a href=""><i class="fa-solid fa-list-check"></i> Lista de Ventas</a>
+			<hr>
+			<a href=""><i class="fa-solid fa-box-open"></i> Lista de Pedidos</a>
+			<a href=""><i class="fa-solid fa-box-open"></i> Lista de Atendidos</a>
+			</div>
+		</div>
+        <div class="dropdown">
+			<button class="dropbtn"><i class="fa-solid fa-clipboard-question"></i> Consultas
+			<i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content">
+			<a href=""><i class="fa-solid fa-clipboard-question"></i> Todas las consultas</a>
+			<hr>
+			</div>
+		</div>
+		<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+		</div>
+	</div>
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    <!-- REFERENCIA DE ALGUNOS DOCUMENTOS PARA TOMAR ALGUNAS FUNCIONES  -->
+    <script type="text/javascript"  src="{%static 'js/jquery.min.js' %}>"></script>
+    <script type="text/javascript"  src="{%static 'js/functions.js' %}>"></script>
+    <script type="text/javascript"  src="{%static 'js/reloj.js' %}"></script>
+    <script type="text/javascript"  src="{%static 'js/icons.js' %}"></script>
+    <script type="text/javascript"  src="{%static 'js/jquery.ripples.min.js' %}"></script>
+	<script type="text/javascript">$('#sampleTable').DataTable();></script>
+	<script>
+		$(document).ready(function() {
+			$('#sampleTable').DataTable({
+				"language": {
+					"decimal": "",
+					"emptyTable": "No hay datos disponibles en la tabla",
+					"info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+					"infoEmpty": "Mostrando 0 a 0 de 0 registros",
+					"infoFiltered": "(filtrados de _MAX_ registros en total)",
+					"infoPostFix": "",
+					"thousands": ",",
+					"lengthMenu": "Mostrar _MENU_ registros por página",
+					"loadingRecords": "Cargando...",
+					"processing": "Procesando...",
+					"search": "Buscar:",
+					"zeroRecords": "No se encontraron registros coincidentes",
+					"paginate": {
+						"first": "Primero",
+						"last": "Último",
+						"next": "Siguiente",
+						"previous": "Anterior"
+					},
+					"aria": {
+						"sortAscending": ": activar para ordenar la columna de manera ascendente",
+						"sortDescending": ": activar para ordenar la columna de manera descendente"
+					}
+				}
+			});
+		});
+	</script>
+	
+</body>
+</html>

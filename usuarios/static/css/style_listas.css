@@ -1,0 +1,340 @@
+@import url(../fonts/GothamBook.css);
+@import url(../fonts/GothamBold.css);
+
+input, select{
+    border-radius: 20px;
+}
+label {
+  margin: 0px;
+}
+#container h1{
+    font-size: 25px;
+    display: inline-block;
+    margin-top: 10px;
+}
+.btn_new{
+    background: #0c5ea1;
+    color: #fff;
+    padding: 5px 25px;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.add_rol{
+    display: flex;
+    align-items: center;
+    width: 20vh;
+}
+
+.btn_reporte_ex{
+    display: inline-block;
+    background: #108028;
+    color: #fff;
+    padding: 5px 25px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+.btn_reporte_pdf{
+    display: inline-block;
+    background: #e64747;
+    color: #fff;
+    padding: 5px 25px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+.btn_new:hover, .btn_reporte_ex:hover, .btn_reporte_pdf:hover{
+    background-color: #000;
+}
+table, td{
+	font:100% Arial, Helvetica, sans-serif; 
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin:1em 0;
+    border-radius: 15px 15px 0px 0px;
+    background: #e9e9e9;
+}
+th, td{
+    text-align:left;
+    padding:.5em;
+    text-align: center;
+}
+th{
+    background:none;
+    color:rgb(0, 0, 0);
+    padding: 15px;
+}
+td{
+    background:none;
+    border: 1px solid rgba(0, 0, 0, 0.171);
+    
+}
+tr:hover td{
+background-color: #00000017;
+}
+.link_edit{
+    color: rgb(34, 136, 219);
+    background: none;
+    border: none;
+}
+.link_edit a{
+  color: rgb(34, 136, 219);
+}
+.icon_size{
+  height: 23px;
+}
+.link_delete{
+  color: rgb(177, 17, 17);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.link_delete a{
+  color: rgb(228, 2, 2);
+}
+.link_delete_pedido{
+    border: none;
+    color: rgb(255, 138, 4);
+    cursor: pointer;
+}
+
+.link_agregar_extras{
+    border: none;
+    cursor: pointer;
+    color: rgb(14, 170, 0);
+}
+
+.link_agregar{
+    background-color: #328aa4;
+    width: 50px;
+    height: 40px;
+    border: 1px solid #328aa4;
+    border-radius: 10px;
+}
+.link_agregar a{
+    color: rgb(233, 230, 230);
+}
+.select_tipo, .select_concepto{
+	width: 15%;
+	border: none;
+	height: 28px;
+	font-size: 16px;
+	box-shadow: none;
+	background: #5961d1;
+	color: #fff;
+	border-radius: 4px;
+	text-decoration: none;
+	cursor: pointer;
+}
+.table_overflow{
+  overflow: auto;
+  width: 100%;
+}
+.back-page{
+    background-color: rgb(77, 133, 238);
+    color: #fff;
+    padding: 6px;
+    border-radius: 5px;
+}
+.back-page:hover{
+    background-color: #000;
+}
+
+.pagination {
+    display: inline-block;
+  }
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 10px;
+  }
+  .pagination a:hover {
+    background-color: #5c5c5c;
+    color: #fff;
+  }  
+  .pagination a.active {
+    background-color: #5c5c5c;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+  }
+
+ 
+  #Buscador {
+    background-size: 24px;
+    border: transparent;
+    border-bottom: solid 1px #ccc;
+    padding: 10px 10px 10px 30px;
+    outline: none;
+  }
+
+  .form_search_consulta{
+    display:block;
+    background: initial;
+    border-radius: 10px;
+    width: 100%;
+  }
+.top-row{
+    background: #ededed;
+    padding: 20px 50px;
+    border-radius: 50px;
+    overflow: hidden;
+    width: 100%;
+    height: 32vh;
+}
+  .top-row > div {
+    float: left;
+    width: 183px;
+  }
+.group_search{
+    padding: 20px;
+    border-left: 2px solid #000;
+}
+.group_search label{
+    font-weight: 900;
+    font-size: 10pt;
+}
+.mas_consultas{
+    margin-top: 10px;
+    padding: 10px;
+    height: 100%;
+}
+
+.first{
+    border-left: none;
+}
+.group_search ul li{
+    list-style: none;
+    cursor: pointer;
+    color: #000;
+    text-align: center;
+}
+.group_search ul li a{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #000;
+    font-size: 11pt;
+}
+.group_search ul li a:hover{
+    background-color: #000;
+    color:#fff;
+    padding: 1px;
+    border-radius: 10px;
+}
+.boton_Nfactura{
+  background-color: #0c5ea1;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}
+  /*.form_search_consulta .btn_search{
+    background: #1faac8;
+    color: #fff;
+    padding: 10px;
+    border: 0;
+    font-size: 12pt;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 20px;
+    width: 12%;
+  }
+  .form_search{
+    display: -webkit-flex;
+    display: flex;
+    float: right;
+    background: initial;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .form_search input{
+    box-sizing: border-box;
+    color: #191919;
+    padding: 15px 15px 15px 35px;
+    width: 100%;
+    padding-left: 40px ;
+  }
+
+  .form_search .icon{
+    color: #2596ff;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin-top: 7px;
+    margin-left: 10px;
+    animation: lupa 3s ease-in-out infinite;
+  }
+  @keyframes lupa{
+	  0%{
+        transform: translateY(0);
+        transform:rotateY(100deg);
+    }
+    50%{
+        transform: translateY(3px);
+    }
+    100%{
+        transform: translateY(0);
+        transform:rotateY(100deg);
+        
+    }
+}
+  
+
+  .form_search .btn_search{
+    background: #1faac8;
+    color: #fff;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  /*listaProducto*/
+
+  .img_producto img{
+    width: 60px;
+    height: auto;
+    margin: auto;
+  }
+
+  @media (max-width: 400px) { 
+    #container h1 {
+      font-size: 20px;
+    }
+    .btn_new {
+      padding: 5px 5px;
+    }
+    .select_categoria, .select_rol {
+      width: 100%;
+      text-align: center;
+    }
+    .table_overflow{
+      overflow: auto;
+      width: 47vh;
+    }
+    .search_download {
+      text-align: center;
+      display: grid;
+      padding-left: 0px;
+    }
+    .select_tipo, .select_concepto {
+      width: 100%;
+      text-align: center;
+    }
+    .optionsBar span {
+      font-size: 8pt;
+    }
+    .search_download {
+      margin-bottom: 0px;
+    }
+    /* para filtro y buscar */
+    .table_controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; /* Alinear verticalmente los elementos */
+      width: 100%; /* Opcional para que ocupe todo el ancho disponible */
+  }   
+}

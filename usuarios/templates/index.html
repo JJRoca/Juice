@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+  <title>Página de Inicio</title>
+</head>
+<body>
+  {% if request.user.username %}
+  <h1>Bienvenido {{ request.user.username }}</h1>
+  {% endif %}
+  <nav>
+    <ul>
+      {% if perms.ventas.view_producto %}
+        <li><a href="{% url 'ventas' %}">Ventas</a></li>
+      {% endif %}
+      <li><a href="{% url 'usuarios' %}">Editar usuarios</a></li>
+      {% if perms.usuarios.view_role %}
+      <li><a href="{% url 'administrar_grupos' %}">Administrar Grupos</a></li>
+      {% endif %}
+      {% if perms.Producto.view_categoria %}
+      <li><a href="{% url 'categorias' %}">Categorias</a></li>
+      {% endif %}
+      <li><a href="{% url 'register_groups' %}">Crear Grupo</a></li>
+      <li><a href="{% url 'agregar_producto' %}">Agregar Producto</a></li>
+    </ul>
+  </nav>
+  <p>Aquí puedes agregar el contenido principal de tu página de inicio.</p>
+  
+</body>
+</html> {% endcomment %}
+<link rel="stylesheet" href="{% static 'css/style_reloj.css' %}">
+<header class="bg_animate fondo-efecto-ondas">
+	<section class="banner contenedor">
+		<secrion class="banner_title">
+			<h2>Bienvenido!</h2>
+				<div id="container-principal">
+				<form name="form_reloj" class="form_reloj">
+							<br>
+					<div id="clockdate">
+						<div class="clockdate-wrapper">
+							<div id="clock"></div>
+							<div id="date"></div>
+						</div>
+					</div>
+				</form>
+				</div>
+		</secrion>
+		<div class="banner_img">
+			<img src="{%static 'img/fondo_r_index.png' %}" alt="">
+		</div>
+	</section>
+
+	<div class="burbujas">
+		<div class="burbuja"></div>
+		<div class="burbuja"></div>
+		<div class="burbuja"></div>
+		<div class="burbuja"></div>
+		<div class="burbuja"></div>
+		<div class="burbuja"></div>
+		<div class="burbuja"></div>
+		<div class="burbuja"></div>
+		<div class="burbuja"></div>
+		<div class="burbuja"></div>
+	</div>
+</header>
+
+{% endblock %}
+	

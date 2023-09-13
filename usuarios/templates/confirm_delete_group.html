@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Confirmar Eliminación de Grupo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .confirm-btn, .cancel-btn {
+      padding: 5px 10px;
+      margin-right: 5px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .cancel-btn {
+      background-color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+  <h1>Confirmar Eliminación de Grupo</h1>
+  <p>¿Estás seguro de que deseas eliminar el grupo "{{ group.name }}"?</p>
+  <form method="POST" action="{% url 'delete_group' group.id %}">
+    {% csrf_token %}
+    <input type="submit" value="Confirmar" class="confirm-btn">
+    <a href="{% url 'administrar_grupos' %}" class="cancel-btn">Cancelar</a>
+  </form>
+</body>
+</html>

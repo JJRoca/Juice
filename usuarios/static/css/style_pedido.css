@@ -1,0 +1,23 @@
+.lista_pedidos_atendidos{
+    display: flex;
+    justify-content: space-between ;
+   
+}
+.list_pe thead tr th{
+    color: #fff;
+}
+table .titulo_pedido{
+    background-color: rgb(15, 119, 93);
+}
+
+.list_at{
+    box-shadow: none;
+}
+
+@media (max-width: 480px) { 
+    .lista_pedidos_atendidos {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+}

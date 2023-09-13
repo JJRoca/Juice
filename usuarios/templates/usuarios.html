@@ -1,0 +1,267 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Lista Usuarios{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Usuarios</title>
+  {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/style_registro.css' %}"> {% endcomment %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style_listas.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style_eliminar.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0"></script>
+  <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+  $(document).ready(function() {
+    var table = $('#usuarios-table').DataTable({
+      language: {
+        url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json'
+      },
+    });
+
+    $('#search-input').keyup(function() {
+      table.search($(this).val()).draw();
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      const deleteForms = document.querySelectorAll('.delete-form');
+      deleteForms.forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          const confirmDelete = confirm('¿Estás seguro de que deseas eliminar este usuario?');
+          if (!confirmDelete) {
+            event.preventDefault();
+          }
+        });
+      });
+    });
+  });
+  </script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+</script>
+<script type="text/javascript">
+$(function (){
+    $("#add_rol").change(function(e) {
+    window.location.href = $(this).val();
+    });
+});
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteForms = document.querySelectorAll('.delete-form');
+    deleteForms.forEach(function(form) {
+      form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting immediately
+        
+        Swal.fire({
+          title: '¿Estás seguro?',
+          text: 'Esta acción no se puede deshacer',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Sí, eliminar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            form.submit(); // If confirmed, submit the form
+          }
+        });
+      });
+    });
+  });
+</script>
+</head>
+<body>
+<section id="container"> 
+  <div class="contenido"> 
+    <h1><i class="fa-solid fa-list"></i> Lista de Usuarios</h1><br><br>
+    <div class="search_download">
+        <a href="{% url 'register_user'%}" class="btn_new"><i class="fa-solid fa-person-circle-plus fa-1x"></i> Crear usuario</a>
+        <select name="jumpMenu" id="add_rol" class="select_rol">
+            <option value="" selected>Rol</option>
+            <option value="{%url 'register_groups'%}">Añadir rol</option>
+            <option value="{%url 'administrar_grupos'%}">Lista rol</option>
+        </select>
+        <a href="{% url 'generar_reporte' %}" class="btn_reporte_ex"><i class="fa-solid fa-file-excel"></i> Excel</a>
+        <a href="{% url 'generar_reporte_pdf' %}" class="btn_reporte_pdf"><i class="fa-solid fa-file-pdf"></i> PDF</a>
+    </div>
+    
+    <table id="usuarios-table">
+      <thead>
+        <tr>
+          <th>COD</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Usuario</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for usuario in usuarios %}
+        <tr>
+          <td>{{ usuario.id }}</td>
+          <td>{{ usuario.first_name }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.username }}</td>
+          <td>
+            {% for grupo in grupos %}
+              {% if grupo in usuario.groups.all %}
+                {{ grupo.name }}
+              {% endif %}
+            {% endfor %}
+          </td>
+          <td class="acciones-buttons">
+            {% if not usuario.is_superuser and not usuario.is_staff %}
+              <div class="icon-container">
+                <a href="{% url 'modificar_usuario' usuario.id %}" class="icon-button modificar-button no-border"><iconify-icon icon="line-md:edit-twotone" style="color: #2a8aff;" width="34" height="34"></iconify-icon></a>
+                <h1>|</h1>
+                <form action="{% url 'eliminar_usuario' usuario.id %}" method="POST" class="delete-form">
+                  {% csrf_token %}
+                  <button type="submit" class="icon-button delete-button no-border"><iconify-icon icon="fa:trash-o" style="color: #ff0e4c;" width="31" height="31"></iconify-icon></button>
+                </form>
+              </div>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+</body>
+<style>
+  .no-border {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  /* ... (otros estilos) ... */
+  
+  .icon-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon-button {
+    padding: 0; /* Ajusta el relleno según sea necesario */
+    cursor: pointer;
+  }
+  
+  .no-border {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .action-divider {
+    width: 1px;
+    height: 24px;
+    background-color: #ccc;
+    margin: 0 10px; /* Ajusta el margen según lo desees */
+  }
+  .center {
+    text-align: center;
+  }
+  /* ... (otros estilos) ... */
+  
+  #usuarios-table {
+    font-size: 14px; /* Ajusta el tamaño de la fuente según tus preferencias */
+    border-collapse: collapse; /* Junta los bordes de las celdas para ahorrar espacio */
+    width: 100%; /* Ajusta el ancho de la tabla según tus preferencias */
+    margin: auto; /* Centra la tabla horizontalmente */
+  }
+  
+  /* Ajusta el espaciado entre celdas y contenido */
+  #usuarios-table th,
+  #usuarios-table td {
+    padding: 5px 8px; /* Ajusta el espaciado superior e inferior (6px) y el espaciado izquierdo y derecho (8px) según tus preferencias */
+  }
+  /* ... (otros estilos) ... */
+  #custom-search {
+    margin-bottom: 10px;
+  }
+  
+  #search-input {
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+  }
+  
+
+
+  .check{
+    width: 30px;
+    height: 20px;
+    box-shadow: none;
+  }
+  .flex{
+    display: flex;
+    /* padding: 0; */
+  }
+  .flex > div{
+    padding: 10px;
+    width: 100%;
+    
+  }
+  label{
+      display: block;
+      font-size: 12pt;
+      font-family: 'GothamBook';
+      margin: 15px auto 5px auto;
+  }
+  input, select{
+    width: 100%;
+    padding: 0;
+    border: none;
+    padding-left: 20px;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cacaca, inset -6px -6px 6px rgb(250, 248, 248);
+    height: 35px;
+    vertical-align: middle;
+  }
+  
+  .select_proveedor{
+    width: 100%;
+    padding: 0;
+    border: none;
+    text-align: center;
+    height: 20px;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: none;
+  }
+  .select_categoria, .select_rol{
+    width: 20%;
+    border: none;
+    height: 28px;
+    font-size: 16px;
+    box-shadow: none;
+    background: #5961d1;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+</html> 
+
+{% endblock %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cerrar sesión</title>
+</head>
+<body>
+  <h1>Cerrar sesión</h1>
+  <p>¿Estás seguro de que deseas cerrar sesión?</p>
+  <form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <input type="submit" value="Cerrar sesión">
+  </form>
+</body>
+</html>

@@ -1,0 +1,214 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+section{
+  width: 100%;
+  height: 100vh;
+  color: #fff;
+  background: linear-gradient(45deg,#0A4661,#0E98A1,#0A4661,#0E98A1);
+  background-size: 400% 400%;
+  position: relative;
+  animation: cambiar 10s ease-in-out infinite;
+}
+
+@keyframes cambiar{
+  0%{background-position: 0 50%;}
+  50%{background-position: 100% 50%;}
+  100%{background-position: 0 50%;}
+}
+.fondo_login{
+  box-sizing: border-box;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:url(../img/fondo-principal2.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center; 
+}
+
+.login-div {
+  width: 330px;
+  height: 500px;
+  border-radius: 50px;
+  background: linear-gradient(45deg,rgba(71, 12, 12, 0.596),rgba(0, 0, 255, 0.288),rgba(0, 128, 0, 0.507),rgba(0, 0, 0, 0.438));
+  box-shadow:  26px 26px 52px linear-gradient(45deg,rgba(229, 255, 0, 0.596),rgba(0, 0, 255, 0.288),rgba(0, 128, 0, 0.507),rgba(0, 0, 0, 0.438)),
+           -26px -26px 52px #3a3b3b;
+  padding: 50px 35px 35px 35px;
+}
+
+.logo img{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 0 auto;
+  box-shadow: 0px 0px 2px #6b7070, 0px 0px 0px 5px #3b3b3b
+}
+
+.titulo {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding-top: 24px;
+  color: rgb(255, 249, 249);
+}
+.msg_save{
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+    color: #3ab855;
+  font-weight: 550;
+  border-radius: 10px;
+  background: #DEDEDE;
+}
+.campos {
+  margin-top: 25px;
+}
+.usuario,
+.contraseña {
+  
+  margin-bottom: 30px;
+  border-radius: 25px;
+  background: #313131;
+  box-shadow: inset 10px 10px 20px #0a0a0a, inset -10px -10px 20px #0c0c0c;
+}
+
+input {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 20px 10px;
+  color: rgb(253, 253, 253);
+}
+
+svg {
+  height: 20px;
+  margin: 2px 15px -5px 15px;
+}
+
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+  background: #020202;
+  border-radius: 25px;
+  transition: 0.5s;
+}
+
+button:hover {
+  background: #eff5f5;
+  color: #000;
+}
+
+button:active {
+  background: #969797;
+}
+
+.link {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.link a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+}
+.link a:hover {
+  background: #0E98A1;
+  padding: 5px;
+  border-radius: 10px;
+}
+.alert{
+  font-family: 'Arial';
+  font-size: 16px;
+  text-align: center;
+  color: rgb(255, 0, 0);
+  font-weight: 700;
+  
+} 
+.advert_msg{
+background-color: #fff;
+padding: 10px;
+border-radius: 10px;
+}
+@media screen and (max-width: 1219px) {
+.login-div {
+  width: 300px;
+  height: 450px;
+}
+
+}
+/*@media screen and (max-width: 1025px) {
+
+.fondo_login{
+  background: url(../img/logo.png);
+  background-repeat: no-repeat;
+  background-size: 20vh;
+  background-position-x: 400px;
+  background-position-y: 5vh;
+}
+}
+@media screen and (max-width: 913px) {
+
+.fondo_login{
+  background-size: 30%;
+  background-position-x: 200px;
+  background-position-y: 30px;
+}
+}
+@media screen and (max-width: 412px) {
+
+.fondo_login{
+  background-size: 40%;
+  background-position-x: 130px;
+  background-position-y: 30px;
+}
+}
+@media screen and (max-width: 360px) {
+
+.fondo_login{
+  background-size: 30%;
+  background-position-x: 130px;
+  background-position-y: 10px;
+}
+}
+@media screen and (max-width: 375px) and (max-height: 667px) {
+
+.fondo_login{
+  background: none;
+  background-size: 30%;
+  background-position-x: 130px;
+  background-position-y: 10px;
+}
+}
+/*Tamaño de laptop*/
+/*@media screen and (max-width: 1366px) and (max-height: 768px) {
+.login-div {
+  width: 260px;
+  height: 450px;
+  
+}
+.usuario,
+.contraseña {
+  
+  width: 100%;
+}
+
+}*/
+@media screen and (max-width: 400px){
+.fondo_login{
+  background: none;
+}
+}

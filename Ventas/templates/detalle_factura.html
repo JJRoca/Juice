@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    thead tr th{
+        padding: 8px;
+        border: 1px solid black;
+    }
+    tbody tr td{
+        padding: 8px;
+        border: 1px solid black;
+    }
+    .color-pendiente {
+        background-color: red;
+    }
+    .color-despachado {
+        background-color: orange;
+    }
+    .hidden {
+        display: none;
+    }
+</style>
+    {% for pedido, detalles in detalles_por_pedido.items %}
+        <h3>Pedido {{ forloop.counter }}</h3>
+        <table id='tabla-detalles_pedido'>
+            <tr id="header1">
+                <th>Producto</th>
+                <th>Ingrediente</th>
+                <th>Extras</th>
+                <th>Cantidad</th>
+                <th></th>
+            </tr>
+            {% for detalle in detalles %}
+                <tr id="detalle-{{ detalle.id }}">
+                    <td>{{ detalle.codProductoIn.producto }}</td>
+                    <td>{{ detalle.ingrediente }}</td>
+                    <td>{{ detalle.extras }}</td>
+                    <td>{{ detalle.cantidad }}</td>
+                    <td>
+                        {% if not detalle.status %}
+                            <button onclick="despachar('{{ detalle.id }}')">Despachar</button>
+                        {% else %}                       
+                            Despachado
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+
+    <script>    
+        function despachar(detalleId) {
+            fetch(`/despachar/${detalleId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'success') {
+                        // Remover la fila del producto despachado
+                        let detalleRow = document.getElementById('detalle-' + detalleId);
+                        if (detalleRow) {
+                            detalleRow.remove();
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al despachar el producto:', error);
+                });
+        }
+    </script>
+    {% comment %} <script src='{% %}'>     {% endcomment %}
+{% endblock %}

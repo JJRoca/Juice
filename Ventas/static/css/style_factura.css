@@ -1,0 +1,148 @@
+@font-face {
+	font-family: 'fuente3';
+	src: url(../fonts/CabinSketch-Regular.ttf);
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    background: url('../img/fondoFactura.jpg');
+    padding-top: 70px;
+    width: 100%;
+    height: 92.3vh;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+}
+.logoTitulo{
+    width: 65vh;
+}
+.logoTitulo h1{
+    font-size: 40pt;
+    font-family: 'fuente3';
+}
+.logoTitulo img{
+    width: 30vh;
+    margin-left: 35vh;
+    margin-top: -2vh;
+}
+.hojaFactura{
+    background-color: #ffffff;
+    width: 60vh;
+    height: 85%;
+    padding: 35px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 20px 10px;
+}
+.hojaFacturaTitulo{
+    display: flex;
+    justify-content: space-between;
+}
+.hojaFactura div img{
+    width: 200px;
+    margin-top: 13px;
+}
+.datos_Factura{
+    height: 13vh;
+    width: 20vh;
+    font-size: 10pt;
+    border-radius: 5px;
+    border: 1px solid rgb(0, 132, 255);
+}
+.datos_Factura h1{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    background: #034263;
+    padding: 10px;
+    text-align: center;
+    font-size: 12pt;
+    font-weight: 600;
+}
+.datos_Factura div{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+}
+.hojaFacturaBody1{
+    border-radius: 10px;
+    border: 1px solid rgb(0, 132, 255);
+}
+.hojaFacturaBody1 h1{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    background-color: #034263;
+    color: #fff;
+    padding: 5px;
+    border-radius: 8px 8px 0px 0px;
+}
+.datoscliente{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-family: Arial, Helvetica, sans-serif;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+}
+
+th,td {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+}
+  
+thead tr {
+    background: #007367;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: start;
+}
+tbody tr td{
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.274);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.totalFac{
+    background: rgba(0, 0, 0, 0.801);
+    border-radius: 5px 0px 0px 5px;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.total{
+    background-color: #f97f63bd;
+    border-radius: 0px 5px 5px 0px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13pt;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.qrwhatsapp{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.word_qr{
+    background-color: #a53704;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15pt;
+    font-family: Arial, Helvetica, sans-serif;
+}  
+.word_qr_enlace{
+    background-color: #07774c;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15pt;
+    font-family: Arial, Helvetica, sans-serif;
+} 
+  
+  
+
+
+  

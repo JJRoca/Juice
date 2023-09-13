@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buscar Usuario</title>
+</head>
+<body>
+  <h1>Buscar Usuario</h1>
+  <form method="post">
+    {% csrf_token %}
+    <label for="correo">Correo:</label>
+    <input type="text" id="correo" name="correo" required>
+    <br>
+    <label for="grupo">Nombre del Grupo:</label>
+    <input type="text" id="grupo" name="grupo" required>
+    <br>
+    <input type="submit" value="Enviar">
+  </form>
+
+  {% if usuario_encontrado %}
+    <h2>Contraseña del Usuario: {{ usuario_encontrado.password }}</h2>
+  {% endif %}
+</body>
+</html>

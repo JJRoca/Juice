@@ -1,0 +1,288 @@
+@font-face {
+	font-family: 'fuente3';
+	src: url(../fonts/CabinSketch-Regular.ttf);
+}
+
+.contenido_venta{
+    /*width: 100%;
+    background: #ededed;*/
+    padding: 20px 50px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #d5d5d5, #dfdfdf);
+    box-shadow:  20px 20px 60px #a0a0a0;
+}
+.form_search_date{
+   display: flex;
+}
+
+#global {
+	height: 190px;
+	width: 230px;
+	border: 1px solid #d5d5d5;
+	background: #0000000a;
+	overflow-y: scroll;
+    font-family: monospace;
+    padding: 10px;
+    font-size: 12pt;
+}
+#mensajes {
+	height: auto;
+}
+.texto {
+	padding:4px;
+	background:#fff;
+}
+.inputs_date{
+    display: flex;
+}
+.inputs_direccion{
+    width: 100%;
+    background: #c9c9c96c;
+    padding: 10px;
+    box-shadow:  20px 20px 60px #b0b0b0,
+             20px 20px 60px #eeeeee;
+    border-radius: 10px;
+}
+.inputs_consult{
+    display: flex;
+    justify-content: space-between;
+}
+.totalDia {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.icons_space{
+    /* text-align: center; */
+    /* display: flex; */
+    /* padding-left: 100px; */
+    justify-content: center;
+}
+.button_listaIngresos{
+    padding: 25px;
+}
+.button_listaIngresos > a, .icon_list{
+    vertical-align: middle;
+}
+.button_listaIngresos > a{
+    background: #0C5EA1;
+    padding: 5px;
+    color: #fff;
+    font-size: 15pt;
+    border-radius: 5px;
+    border: 2px solid #000;
+}
+
+.msg_warning{
+    background: #000;
+    color: #fff;
+    padding: 10px;
+    font-size: 15px;
+    border-radius:5px;
+}
+.icon_left, .msg_warning{
+    vertical-align: middle;
+}
+.list_sear{
+    position: relative;
+    left: 100px;
+    color: rgb(0, 0, 0);
+}
+.result_list{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    background: rgba(0, 0, 0, 0.082);
+    border-radius: 10px;
+}
+.result_list ul > li{
+   list-style: none;
+   padding: 6px;
+   text-align: center;
+   font-family: monospace;
+}
+
+.list_title_result{
+    border: 1px solid #000;
+    font-family: monospace;
+    font-size: 10pt;
+    font-weight: bolder;
+}
+.tablas_result{
+    display: inline-block;
+}
+.title{
+    font-size: 15pt;
+    font-family: monospace;
+    font-weight: 100;
+}
+.group_option select{
+    width: 60%;
+    border: none;
+    padding-left: 20px;
+    font-size: 14px;
+    border-radius: 50px;
+    height: 35px;
+}
+.group_input {
+    padding: 10px;
+    width: 25vh;
+}
+.group_input label, input{
+    vertical-align: middle;
+  }
+.group_input > label{
+    font-size: 12pt;
+    font-family: monospace;
+}
+.group_input input{
+   width: 30px;
+   height: 20px;
+}
+#date_clear{
+    padding: 5px;
+    width: 60px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.date, .date_month, .date_year{
+   width: 40%;
+   text-align: center;
+}
+.date > input, .date_month > input, .date_year > input{
+    width: 60%;
+    border: none;
+    padding-left: 20px;
+    font-size: 16px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cacaca, inset -6px -6px 6px rgb(250, 248, 248);
+    height: 35px;
+}
+.month_date{
+    margin-top: 20px;
+    border: none;
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cacaca, inset -6px -6px 6px rgb(250, 248, 248);
+}
+.table_id{
+    width: 60vh;
+}
+
+.text_list{
+    border: none;
+    padding-left: 10px;
+    font-size: 14px;
+    border-radius: 50px;
+    background: #ededed;
+    height: 2vh;
+}
+.accions_buttons{
+    position: fixed;
+    left: 15px;
+    background: #747474;
+    border-radius: 10px;
+    width: 12vh;
+    height: 15vh;
+    display: grid;
+    text-align: center;
+    place-content: center;
+    border-radius: 10px;
+    border: 2px solid #000;
+}
+.accions_buttons > label{
+    color: #fff;
+    padding: 5px;
+    font-family: 'fuente3';
+    font-size: 17pt;
+}
+.btn_view{
+    background-color: #000;
+    color: #fff;
+    padding: 4px;
+    font-size: 13pt;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.refresh{
+    background-color: rgb(2, 89, 189);
+    color: rgb(255, 255, 255);
+    padding: 6px;
+    font-size: 13pt;
+    border-radius: 10px;
+    border: 1px solid #000;
+    font-weight: 550;
+}
+.total_socio{
+font-size: 11pt;
+}
+.result_consult{
+    padding: 20px;
+    max-width: 180vh;
+    margin: 0 auto;
+}
+.container_concepto{
+    display: flex;
+}
+.container_concepto > div{
+    padding: 5px;
+    vertical-align: middle;
+    margin: 0 auto;
+}
+.container_concepto > div > label, input{
+    vertical-align: middle;
+}
+.btn_report_consult{
+    background-color: green;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
+.btn_report_consultPDF{
+    background-color: rgb(197, 12, 12);
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+@media (max-width: 400px) { 
+	.form_search_date {
+        display: flex;
+        flex-direction: column;
+    }
+    .inputs_date {
+        display: flex;
+        width: 85vh;
+        flex-direction: column;
+    }
+    .inputs_consult {
+        display: flex;
+        flex-direction: column;
+    }
+    .result_list {
+        display: flex;
+        flex-direction: column;
+    }
+    .icons_space {
+        display: none;
+    }
+    .table_overflowConsult {
+        overflow: auto;
+        width: 44vh;
+    }
+    .contenido_venta {
+        padding: 10px;
+    }
+    .accions_buttons {
+        left: 290px;
+        margin-top: -70px;
+    }
+    .text_list {
+        height: 5vh;
+    }
+    p {
+        display: block;
+    }
+}

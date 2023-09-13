@@ -1,0 +1,75 @@
+
+
+.container {
+    width: 100%; /* Cambiado a 100% para ocupar el ancho del navegador */
+    margin-bottom: 220px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex: 0 0 calc(25% - 20px);
+    padding: 10px;
+}
+
+.categoria-link {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#tabla-productos {
+    width: auto;
+    border-collapse: collapse;
+}
+
+#tabla-productos th {
+    background-color: #f2f2f2;
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#tabla-productos td {
+    padding: 8px;
+    border: 1px solid black;
+}
+
+.hidden {
+    display: none;
+}
+
+.tabla-contenedor {
+    display: flex; /* Agregado para usar flexbox */
+    justify-content: space-between; /* Agregado para colocar las tablas en los extremos */
+    width: 100%; /* Cambiado a 100% para ocupar el ancho del navegador */
+    overflow-x: auto;
+}
+
+#tabla-productos,
+#tabla-detalles {
+    width: auto; /* Ajuste el ancho de la tabla a "auto" */
+    margin-bottom: 20px;
+    table-layout: auto; /* Agrega esta línea */
+    height: auto;
+  }
+#tabla-detalles th {
+    background-color: #f2f2f2;
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#tabla-detalles td {
+    padding: 8px;
+    border: 1px solid black;
+}

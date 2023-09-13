@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ver Roles{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style_listas.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style_eliminar.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <title>Modificar Usuario</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #fff;
+      padding: 10px;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 30%;
+      margin: 20px auto;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 50px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1); /* Agrega la sombra interna */
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #007bff;
+      box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+    }
+
+    .centered-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 70vh;
+      padding-top: 50px;
+    }
+
+    .form-heading {
+      color: #0e98a1;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .form-icon {
+      color: #0e98a1;
+      width: 70px;
+      height: 70px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .save-button {
+      background-color: #0e98a1;
+      color: #fff;
+      border: 1px solid #ccc;
+    }
+
+    .cancel-button {
+      background-color: #FF0000;
+      color: #fff;
+      border: 1px solid #ccc;
+    }
+
+    button:hover {
+      background-color: #dae937;
+    }
+  </style>
+</head>
+<body>
+  <div class="centered-content">
+    <center><div class="form-heading">MODIFICAR USUARIO</div></center>
+    <svg width="200" height="1" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="0.5" x2="200" y2="0.5" stroke="#000" stroke-width="1" />
+    </svg>
+    
+
+    <form action="{% url 'modificar_usuario' usuario.id %}" method="POST">
+    
+      {% csrf_token %}
+      <div>
+        <label for="nombre"><iconify-icon icon="fa6-solid:user-pen" style="" width="17" height="17"></iconify-icon>Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="{{ usuario.first_name }}" required>
+      </div>
+      <div>
+        <label for="email"><iconify-icon icon="material-symbols:alternate-email-rounded" width="17" height="17"></iconify-icon>Email:</label>
+        <input type="email" id="email" name="email" value="{{ usuario.email }}" required>
+      </div>
+      <div>
+        <label for="username"></iconify-icon><iconify-icon icon="mdi:user" width="19" height="19"></iconify-icon>Usuario:</label>
+        <input type="text" id="username" name="username" value="{{ usuario.username }}" required>
+      </div>
+      <div>
+        <label for="password"><iconify-icon icon="mdi:password" width="17" height="17"></iconify-icon>Contraseña:</label>
+        <input type="password" id="password" name="password">
+      </div>
+      <div style="grid-column: span 2; text-align: center;">
+        <label for="grupo"><iconify-icon icon="material-symbols:group" width="17" height="17"></iconify-icon>Cambiar de Rol:</label>
+        <select id="grupo" name="grupo" required>
+          {% for grupo in grupos %}
+            <option value="{{ grupo.id }}" {% if grupo in usuario.groups.all %} selected {% endif %}>{{ grupo.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div style="grid-column: span 2; text-align: center;">
+        <button type="button" class="save-button" id="modificar-button">
+          <iconify-icon icon="ic:baseline-save" style="color: white;" width="17" height="17"></iconify-icon>
+          Actualizar
+        </button>
+        <button type="button" class="cancel-button" onclick="cancelar()">
+          <iconify-icon icon="mdi:cancel-circle" style="color: #fff;" width="17" height="17"></iconify-icon>
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+<script>
+  function cancelar() {
+    // Cambiar la ubicación actual del navegador a la página de inicio
+    window.location.href = "{% url 'usuarios'%}"; // Reemplaza "/ruta-de-tu-index" con la URL correcta de tu página de inicio
+  }
+</script>
+<script>
+  // Agrega un evento de clic al botón de modificar
+  document.getElementById("modificar-button").addEventListener("click", function() {
+    // Muestra la alerta SweetAlert
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción modificará el usuario. ¿Deseas continuar?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, modificar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Si se confirma, envía el formulario
+        document.querySelector("form").submit();
+      }
+    });
+  });
+</script>
+</html>
+{% endblock %}

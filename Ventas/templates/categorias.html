@@ -1,0 +1,560 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+ 
+
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+<link rel="stylesheet" href="{% static 'css/categorias.css' %}">
+
+ 
+
+{% comment %} <audio id="tablaAviso" src="{% static 'sounds/puercoAraña.mp3' %}" preload="auto"></audio> {% endcomment %}
+
+ 
+
+<style>  
+
+    .row {
+
+    display: flex;
+
+    justify-content:left;  
+
+    }
+
+    .column{
+
+        max-width: 200px;
+
+    }
+
+    /* Estilos para el botón Guardar Venta */
+
+    #guardarVenta-btn {
+
+        background-color: #25222b;
+
+        border: none;
+
+        color: white;
+
+        padding: 8px 20px;
+
+        text-align: center;
+
+        text-decoration: none;
+
+        display: inline-block;
+
+        font-size: 14px;
+
+        border-radius: 4px;
+
+        cursor: pointer;
+
+        transition: background-color 0.3s ease;
+
+    }
+
+ 
+
+    /* Cambio de color al pasar el cursor */
+
+    #guardarVenta-btn:hover {
+
+        background-color:blue;
+
+    }
+
+    #lista-productos{
+
+        background-color:  #f5f5f5;
+
+    }
+
+    #lista-productos tr td:hover {
+
+        background-color:red ; /* Cambia el color de fondo al pasar el cursor */
+
+        cursor: pointer; /* Cambia el cursor a una mano para indicar interactividad */
+
+    }
+
+    #tabla-detalles thead tr th{
+
+        background: #0A4661;
+
+        color: #fff;
+
+        border-radius: 2px;
+
+        font-size: 11pt;
+
+    }
+
+    .fruta-select{
+
+        border-radius: 150px;
+
+    }
+
+    #tabla-productos thead tr th{
+
+        background: #0A4661;
+
+        color: #fff;
+
+        border-radius: 2px;
+
+        font-size: 11pt;
+
+    }
+
+    .fruta-select{
+
+    width: 200px;
+
+    height: 40px;
+
+    text-align: center;
+
+    padding-left: 0px;
+
+    border-radius: 10px;
+
+    font-family: 'fuente5';
+
+    font-size: 13pt;
+
+    cursor: pointer;
+
+    background: #5d9415;
+
+    color: #fff;
+
+    box-shadow: none;
+
+    }
+
+</style>
+
+ 
+
+<div class="container">
+
+    <h1>Lista de categorías</h1>
+
+    <div class="row">
+
+        <div class="column">
+
+        <!-- <div  class="col-md-3"> -->
+
+            {% for categoria in categorias %}
+
+                {% if forloop.counter0|divisibleby:5 and not forloop.first %}
+
+        </div>
+
+        <!-- <div class="column"> -->
+
+        <div  class="column">            
+
+                {% endif %}            
+
+                <div class="categoria-link">
+
+                    <a href="#" class="cate" data-categoria-id="{{ categoria.id }}">{{ categoria.categoria }}
+
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <button id="btnBuscarCliente">Buscar Cliente</button>
+
+    <button id="btnRegistrarCliente">Registrar Cliente</button>
+
+ 
+
+    <div id="buscarClienteContainer" style="display: none;">
+
+        <input type="number" id="inputBuscarCliente" name="inputBuscarCliente" placeholder="Ingrese el nombre del cliente">
+
+        <button id="btnBuscar">Buscar</button>
+
+        <div id="datosCliente" style="display: none;">
+
+            <h3>Cliente encontrado:</h3>
+
+            <p id="nitCliente"></p>
+
+            <p id="nombreCliente"></p>
+
+            <p id="direccionCliente"></p>
+
+            <p id="telefonoCliente"></p>
+
+        </div>
+
+        <p id="mensajeClienteNoEncontrado" style="display: none;">Cliente no encontrado</p>
+
+    </div>
+
+ 
+
+    <div id="registrarClienteContainer" style="display: none;">
+
+        <input type="text" id="inputNombre" name="inputNombre" placeholder="Nombre">
+
+        <input type="number" id="inputNit"  name="inputNit" placeholder="NIT">
+
+        <input type="number" id="inputTelefono" name="inputTelefono" placeholder="Teléfono">
+
+       
+
+    </div>
+
+    <div class="tabla-contenedor">
+
+        <table id="tabla-productos">
+
+            <thead>
+
+                <tr>            
+
+                    <th>Producto</th>
+
+                    <th class="precio-celda">P</th>
+
+                    <th class="precio-celda">M</th>
+
+                    <th class="precio-celda">G</th>
+
+ 
+
+                </tr>
+
+            </thead>
+
+            <tbody id="lista-productos">
+
+            </tbody>
+
+        </table>
+
+        <table id="tabla-detalles" >
+
+            <thead>
+
+                <tr>
+
+                    <th>Producto</th>
+
+                    <th>Seleccione el ingrediente</th>
+
+                    <th>Cantidad</th>
+
+                    <th>Precio</th>
+
+                    <th>Total</th>
+
+                    <th>Extras</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="lista-detalles">
+
+            </tbody>
+
+            <tfoot>
+
+                <tr>
+
+                    <th colspan="4" style="text-align: right;">Total:</th>
+
+                    <th id="total-general">0.00 Bs</th>
+
+                    <th></th>
+
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+    </div>
+
+ 
+
+    <button id="guardarVenta-btn" type="submit" style="float: right;">  <i class="fas fa-save"></i>Guardar Venta</button>
+
+</div>
+
+ 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+ 
+
+ 
+
+ 
+
+ <script>
+    
+$(document).ready(function() {
+     
+    $('.categoria-link a').on('click', function(e) {
+        e.preventDefault();
+
+       var categoriaId = $(this).data('categoria-id');
+       console.log(categoriaId)
+        $.ajax({
+            url: '/consulta-productos/',
+            method: 'GET',
+            data: {categoriaId: categoriaId},
+            dataType: 'json',
+            success: function(response) {
+                $('#lista-productos').empty();
+   
+                $.each(response.productosInternos, function(index, productoInterno) {
+                       if (productoInterno.precio_p > 0 || productoInterno.precio_m > 0 || productoInterno.precio_g > 0) {
+                       let newRow = $('<tr>');
+                       newRow.append('<td>' + productoInterno.producto + '</td>');
+
+                        if (productoInterno.precio_p > 0) {
+                            newRow.append('<td>' + productoInterno.precio_p + ' Bs'+'</td>');
+                        } else {
+                            newRow.append('<td></td>');
+                        }
+
+
+                        if (productoInterno.precio_m > 0) {
+                            newRow.append('<td>' + productoInterno.precio_m + ' Bs'+'</td>');
+                        } else {
+                            newRow.append('<td></td>');
+                        }
+
+                        if (productoInterno.precio_g > 0) {
+                            newRow.append('<td>' + productoInterno.precio_g + ' Bs'+'</td>');
+                        } else {
+                            newRow.append('<td></td>');
+                        }
+                       newRow.data('select-options', productoInterno.selectOptions); // Establece el atributo data-select-options
+                        $('#lista-productos').append(newRow);
+                       
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+   $('#lista-productos').on('click', 'tr', function() {
+   let producto = $(this).find('td:first').text();
+   let selectOptions = $(this).data('select-options');
+
+   let newRow = $('<tr>');
+   newRow.append('<td>' + producto + '</td>');
+   newRow.append('<td><select class="fruta-select">' + selectOptions + '</select></td>');
+   newRow.append('<td><input type="number" class="cantidad-input" min="1" value="1"></td>');
+
+   // Obtener el valor de la celda en la cual se hizo click
+   let clickedCellValue = $(event.target).closest('td').text();
+
+   // Añadir las celdas de precios dinámicamente con el valor de la celda clickeada
+   
+   newRow.append('<td class="precio">' + clickedCellValue + '</td>');
+   
+
+   newRow.append('<td class="total">0 Bs</td>');
+   newRow.append('<td><input type="text" class="extras-input"></td>');
+
+   $('#lista-detalles').append(newRow);
+});
+
+
+    $('#lista-detalles').on('click', '.agregar-btn', function() {
+        let row = $(this).closest('tr');
+        var cantidad = row.find('.cantidad-input').val();
+        var precio = parseFloat(row.find('.precio').text());
+        var total = cantidad * precio;
+
+        row.find('.total').text(total.toFixed(2) + ' Bs');
+       //  actualizarTotalGeneral();
+    });
+    // Función para calcular y actualizar el total general
+       function actualizarTotalGeneral() {
+           var totalGeneral = 0;
+           // Itera a través de las filas de detalles y suma los totales
+           $('#lista-detalles tr').each(function() {
+               var totalStr = $(this).find('.total').text();
+               var total = parseFloat(totalStr.replace(' Bs', '')) || 0;
+               totalGeneral += total;
+           });
+           // Actualiza el valor en la casilla del total general
+           $('#total-general').text(totalGeneral.toFixed(2) + ' Bs');
+       }
+
+    $('#lista-detalles').on('change', '.cantidad-input', function() {
+        var row = $(this).closest('tr');
+        var cantidad = $(this).val();
+        var precio = parseFloat(row.find('.precio').text());
+        
+        var total = cantidad * precio;
+
+        row.find('.total').text(total.toFixed(2) + ' Bs');
+        
+        // Agrega las propiedades 'precio' y 'total' al objeto 'detalle'
+        row.data('precio', precio);
+        row.data('total', total);
+        actualizarTotalGeneral();
+    });
+    $('#btnBuscarCliente').on('click', function() {
+                $('#buscarClienteContainer').show();
+                $('#registrarClienteContainer').hide();
+            });
+
+    $('#btnRegistrarCliente').on('click', function() {
+                $('#registrarClienteContainer').show();
+                $('#buscarClienteContainer').hide();
+                
+            });
+
+
+      
+    //BUSCAMOS EL CLIENTE SI EXISTE O NO
+    const buscarClienteNitBtn = document.getElementById('btnBuscar');
+    buscarClienteNitBtn.addEventListener('click', function() {
+        const nitClienteBuscar = document.getElementById('inputBuscarCliente').value;
+            console.log(nitClienteBuscar);
+
+            fetch('/buscar_cliente/?nit=' + nitClienteBuscar)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.cliente) {
+                            $('#nitCliente').text("NIT: " + data.cliente.nit);
+                            $('#nombreCliente').text("Nombre: " + data.cliente.nombre);
+                            $('#direccionCliente').text("Dirección: " + data.cliente.direccion);
+                            $('#telefonoCliente').text("Teléfono: " + data.cliente.telefono);
+                            $('#datosCliente').show();
+                            $('#mensajeClienteNoEncontrado').hide();
+                        } else {
+                            $('#datosCliente').hide();
+                            $('#mensajeClienteNoEncontrado').show();
+                        }
+                    })
+                    .catch(error => {
+                        console.log("Error al encontrar datos: " + error);
+                    });
+            });
+       $('#guardarVenta-btn').on('click', function() {
+       var detalles = [];
+       var nitCliente = '';
+
+   
+       $('#tabla-detalles tbody tr').each(function() {
+           let detalle = {};
+           detalle.producto = $(this).find('td:eq(0)').text();
+           detalle.ingrediente = $(this).find('td:eq(1) select').val();
+           detalle.cantidad = parseInt($(this).find('.cantidad-input').val());
+           detalle.precio_venta = parseFloat($(this).find('.precio').text());
+           detalle.total_venta = parseFloat($(this).find('.total').text());
+           detalle.extras = $(this).find('td:eq(5) input').val();
+
+           detalles.push(detalle);
+       });
+       // Verificar si se ingresó un NIT de cliente
+       if ($('#datosCliente').is(':visible')) {
+           nitCliente = $('#nitCliente').text().trim().split(':')[1].trim();
+       } else {
+           // Se ingresaron los datos de registro de cliente
+           var nombreCliente = $('#inputNombre').val().trim();
+           nitCliente = $('#inputNit').val().trim();
+           var telefonoCliente = $('#inputTelefono').val().trim();
+           // Validar los campos requeridos
+           if (nombreCliente !== '' && nitCliente !== '' && telefonoCliente !== '') {
+               var clienteData = {
+                   nombre_cliente: nombreCliente,
+                   nit_clienteNuevo: nitCliente,
+                   telefono_cliente: telefonoCliente
+               };
+               detalles.push(clienteData);
+           }
+           // else if ($('#inputNit').val().trim() !== '') {
+           //     nitCliente = $('#inputNit').val().trim();
+           // }
+           else if (nombreCliente === '' && nitCliente === '' && telefonoCliente === '') {
+               // No se ingresaron los datos del cliente, guardar la venta sin el cliente asociado
+               detalles.push({});
+           }
+           
+           else  {
+               console.error('Faltan campos requeridos para registrar el cliente');
+               return;
+           }
+       }
+
+       var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+       $.ajax({
+           url: '/guardar_detalles/',
+           method: 'POST',
+           headers: {
+               'X-Csrftoken': csrfToken,
+               'Content-Type': 'application/json'
+           },
+           data: JSON.stringify({
+               detalles: detalles,
+               nit_cliente: nitCliente
+           }),
+           success: function(response) {
+               console.log("Responseeeeeee",response)
+               console.log('Detalles guardados exitosamente');
+           },
+           error: function(xhr, status, error) {
+               console.error('Error al guardar los detalles:', error);
+           }
+       });
+       });
+
+               
+    });
+    // Obtén la referencia a las tablas
+   const tablaProductos = document.getElementById("tabla-productos");
+   const tablaDetalles = document.getElementById("tabla-detalles");
+
+   // Calcula y ajusta la altura de la tabla-detalles
+   function ajustarAlturaTablaDetalles() {
+   const numFilas = tablaProductos.rows.length;
+   const alturaTabla = numFilas * 40; // Ajusta el valor según tus necesidades
+   
+   tablaDetalles.style.height = `${alturaTabla}px`;
+   }
+
+   // Llama a la función para ajustar la altura inicialmente y cuando haya cambios en la tabla-productos
+   ajustarAlturaTablaDetalles();
+
+
+ </script>
+
+{% endblock %}
+
+ 
+
+ 
+
+<!-- control D  marca todas las coincidencias -->

@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Registro Usuario {% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registro de Usuarios</title>
+  <link rel="stylesheet" href="{% static 'css/style_registro.css' %}">
+</head>
+<body>
+  <section id="container">
+    <div class="contenido">
+      <div class="form_register">
+        <center><h1><i class="fa-solid fa-user-plus"></i> Registro Usuario</h1></center>
+        <br>
+        <hr>
+        
+        <form method="POST" action="{% url 'register_user' %}" id='form'>
+          {% csrf_token %}
+          {% if success_message %}
+          <p class="success-message">{{ success_message }}</p>
+        {% endif %}
+          {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li id='errores' class="message {% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+        {% if form.username.errors %}
+          <ul class="message {% if message.tags %} {{ message.tags }}{% endif %}">
+            {% for error in form.username.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+          <div class="flex">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+              <label style="margin-bottom: 10px;"><strong>Nuevo Usuario</strong></label>
+              <i class="fa-solid fa-person fa-5x"></i>
+            </div>
+          </div>
+          
+          <div class="flex">
+            <div>
+              <label  for="{{ form.first_name.id_for_label }}"><i class="fa-solid fa-user-check"></i> Nombre:</label>
+              {{ form.first_name }}
+            </div>
+            <div>
+              <label for="{{ form.email.id_for_label }}"><i class="fa-solid fa-at"></i>Email:</label>
+              {{ form.email }}
+            </div>
+          </div>
+          
+          <div class="flex">
+            <div>
+              <label for="{{ form.username.id_for_label }}"><i class="fa-solid fa-user"></i>Usuario:</label>
+              {{ form.username }}
+            </div>
+            <div>
+              <label for="{{ form.password1.id_for_label }}"><i class="fa-solid fa-lock"></i>Contraseña:</label>
+              {{ form.password1 }}
+            </div>
+            <div>
+              <label for="{{ form.password2.id_for_label }}">Repetir Contraseña:</label>
+              {{ form.password2 }}
+              <div id="password-match-error" class="password-match-error"></div>
+            </div>
+          </div>
+          
+          <div class="flex">
+            <div>
+              <label for="{{ form.grupo.id_for_label }}"><i class="fa-solid fa-user-pen"></i>Rol del usuario:</label>
+              {{ form.grupo }}
+            </div>
+          </div>
+          
+          <div class="buttoms"><br>
+            <button type="submit" class="btn_save btn"><i class="fa-solid fa-floppy-disk"><input type="submit" value="Registrar"></i> Guardar</button>
+            <a href="{% url 'usuarios'%}" class="btn_cancel"><i class="fa-solid fa-ban"></i> Cancelar</a>
+            
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#{{ form.password2.id_for_label }}").keyup(function() {
+        var password1 = $("#{{ form.password1.id_for_label }}").val();
+        var password2 = $(this).val();
+  
+        if (password1 !== password2) {
+          $("#password-match-error").text("Las contraseñas no coinciden").addClass("error-message");
+        } else {
+          $("#password-match-error").text("").removeClass("error-message");
+        }
+      });
+  
+      $("#register-form").submit(function(event) {
+        event.preventDefault(); // Prevent default form submission
+  
+        var form = $(this);
+        var csrf_token = form.find("input[name='csrfmiddlewaretoken']").val();
+  
+        $.ajax({
+          type: "POST",
+          url: form.attr("action"),
+          data: form.serialize(),
+          success: function(response) {
+            // Show success message
+            $(".success-message").text("Usuario registrado exitosamente").addClass("success-message");
+  
+            // Clear form fields and password match error after a delay
+            setTimeout(function() {
+              form[0].reset();
+              $("#password-match-error").text("").removeClass("error-message");
+            }, 1000); // Adjust the delay as needed
+          },
+          error: function(xhr, status, error) {
+            console.error(error);
+          }
+        });
+      });
+    });
+  </script>
+  
+  
+
+
+</body>
+
+
+</html>
+ <style>/* Estilos para el mensaje de éxito */
+  .success-message {
+    background-color: #4CAF50; /* Color de fondo verde */
+    color: white; /* Texto en color blanco */
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .message {% if message.tags %} {{ message.tags }}{% endif %}{
+    background-color: #FF5733; /* Color de fondo naranja */
+    color: white; /* Texto en color blanco */
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .error-message {
+    background-color: #FF5733; /* Color de fondo naranja */
+    color: white; /* Texto en color blanco */
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+
+  
+</style>
+{% endblock %}

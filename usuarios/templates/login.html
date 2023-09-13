@@ -1,0 +1,145 @@
+{% load static %}
+{% block content %}
+{% comment %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <title>Iniciar sesión</title>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Iniciar sesión</h2>
+    <form method="post" class="login-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">Usuario:</label>
+        {{ form.username }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.password.id_for_label }}">Contraseña:</label>
+        {{ form.password }}
+      </div>
+      <button type="submit">Ingresar</button>
+      {% if form.errors %}
+      <p class="error-message">!Error de inicio. Por favor, verifica tu usuario y contraseña.</p>
+      {% endif %}
+    </form>
+  </div>
+</body>
+<style>/* Reset some default browser styles */
+  body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Basic styling for the form */
+  .login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .login-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .login-form label {
+    font-weight: bold;
+  }
+  
+  .login-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-form button:hover {
+    background-color: #0056b3;
+  }
+  </style>
+</html> {% endcomment %}
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <title>Login | Sistema Ventas</title>
+</head>
+<body>
+  <section id="container">
+      <div class="fondo_login"> 
+          <div class="login-div">
+              <center><div class="logo"><img src="{% static '../static/img/img_311846.png' %}" alt=""></div></center>
+              <div class="titulo">Iniciar Sesión</div>
+    <form method="post" class="login-form">
+      {% csrf_token %}
+      <div class="usuario"> 
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}"><i class="fa-solid fa-user"></i></label>
+        {{ form.username }}
+      </div>
+    </div>
+      <div class="contraseña">
+      <div class="form-group">
+        <label for="{{ form.password.id_for_label }}"><i class="fa-solid fa-lock"></i></label>
+        {{ form.password }}
+      </div>
+    </div>
+      <button type="submit" class="boton">Ingresar</button>
+      {% if form.errors %}
+      <p class="error-message">El usuario o la clave son incorrectas, Ingrese de Nuevo</p>
+      {% endif %}
+    </form>
+              <div class="link">
+  
+                  <a href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a>
+
+              </div>
+          </div> 
+      </div>  
+  </section>
+  <script src="{% static 'js/icons.js' %}"></script>
+  <style>
+   /* Styling for error messages */
+.error-message {
+  color: #d9534f;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+  </style>
+</body>
+</html>  
+{% endblock %}
