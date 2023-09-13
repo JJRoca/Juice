@@ -51,37 +51,34 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script src="{% static 'js/ventas/categorias.js' %}"></script> 
-    <script>
-        function despachar(detalleId) {
-            fetch(`/despachar/${detalleId}/`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message === 'success') {
-                        // Remover la fila del producto despachado
-                        let detalleRow = document.getElementById('detalle-' + detalleId);
-                        if (detalleRow) {
-                            detalleRow.remove();
-                        }
-    
-                        // Verificar si no quedan filas en la tabla
-                        let tablaDetalles = document.getElementById('tabla-detalles_pedido');
-                        if (tablaDetalles.rows.length <= 1) {
-                            // Si no quedan filas en la tabla, eliminar la tabla completa
-                            tablaDetalles.parentNode.removeChild(tablaDetalles);
-    
-                            // // También puedes eliminar el encabezado si lo deseas
-                            // let encabezado = document.getElementById('header1');
-                            // if (encabezado) {
-                            //     encabezado.remove();
-                            // }
+<script>
+    function despachar(detalleId) {
+        fetch(`/despachar/${detalleId}/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'success') {
+                    // Remover la fila del producto despachado
+                    let detalleRow = document.getElementById('detalle-' + detalleId);
+                    if (detalleRow) {
+                        detalleRow.remove();
+                    }
+
+                    // Verificar si esta era la última fila en la tabla
+                    let tables = document.querySelectorAll('table');
+                    for (let table of tables) {
+                        let rows = table.querySelectorAll('tr');
+                        if (rows.length <= 1) {
+                            // Si la tabla está vacía, eliminarla
+                            table.parentNode.removeChild(table);
                         }
                     }
-                })
-                .catch(error => {
-                    console.error('Error al despachar el producto:', error);
-                });
-        }
-    </script>
-    
+                }
+            })
+            .catch(error => {
+                console.error('Error al despachar el producto:', error);
+            });
+    }
+
+</script>
     
 {% endblock %}
