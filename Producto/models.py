@@ -16,7 +16,8 @@ class ProductoInterno(models.Model):
     precio_m=models.DecimalField(max_digits=7,decimal_places=2,blank=True,null=True)
     precio_g=models.DecimalField(max_digits=5,decimal_places=2,blank=True,null=True)
     existencia=models.SmallIntegerField(blank=True,null=True)
-    date_add=models.DateTimeField(auto_now_add=True)
+    date_add=models.DateTimeField()
+    foto=models.ImageField(upload_to="media/")
     def __str__(self):
         return self.producto
 
