@@ -45,129 +45,60 @@ from django.shortcuts import get_object_or_404
 
 #GUARDAR VENTAS
 def guardar_detalles(request):
-
+    #verificamos si un post 
     if request.method == 'POST':
-
         data = json.loads(request.body)
-
         detalles = data.get('detalles', [])
-
         nit_cliente = data.get('nit_cliente')
-
         print(f"Dataaaaaa: {data}, tipo {type(data)}")
-
         print("detalles")
-
         print(detalles)
-
         print("tipo de objeto",type(detalles))
-
         print("nit cliente---------")
-
         print(nit_cliente)
-
         #Verificar si el cliente ya existe en la base de dat<os
-
         try:
-
             cliente = Cliente.objects.get(nit=nit_cliente)
-
         except Cliente.DoesNotExist:
-
             # El cliente no existe, registrar al cliente primero
-
             cliente_data = detalles.pop()  # Extraer los datos del cliente del objeto detalles
-
             nombre_cliente = cliente_data.get('nombre_cliente')
-
             telefono_cliente = cliente_data.get('telefono_cliente')
-
             print("-----------------------------------------------------------------------")
-
             print(cliente_data)
-
-           
-
-       
-
             cliente = Cliente(
-
                 nit=nit_cliente,
-
                 nombre=nombre_cliente,
-
                 telefono=telefono_cliente
-
             )
-
-           
-
             cliente.save()
-
         pedido = Pedido.objects.create()  # Se creará un nuevo pedido automáticamente
-
         for detalle in detalles:
-
             producto = detalle.get('producto')
-
             if producto:
-
                 ingrediente = detalle.get('ingrediente')
-
                 cantidad = detalle.get('cantidad')
-
                 precio_venta = detalle.get('precio_venta')
-
                 extras = detalle.get('extras')
-
                 total_venta = detalle.get('total_venta')
-
-         
-
                 print(f"producto: {producto}, ingrediente: {ingrediente}, cantidad: {cantidad}")
-
                 detalle_factura = DetalleFactura(
-
                     pedido=pedido,
-
                     cliente=cliente,
-
                     codProductoIn=ProductoInterno.objects.get(producto=producto),
-
                     ingrediente=ingrediente,
-
                     extras=extras,
-
                     cantidad=cantidad,
-
                     precio_venta=precio_venta,          
-
                     total_venta=total_venta
-
                 )
-
                 detalle_factura.save()
-
-               
-
                 print("detallessssss: ",detalle_factura)
-
             else:
-
                 print("Error")
-
         return JsonResponse({'message': 'Detalles de factura guardados exitosamente.'})
-
     else:
-
         return JsonResponse({'error': 'Método no permitido.'})
-
-#CLASE PARA LA NUEVA VENTA
-def venta(request):
-    productos = ProductoInterno.objects.filter(status=True).order_by('cat_producto')
-    prod=ProductoInterno.objects.all()
-    context = {'productos': productos,'prod':prod}
-    return render(request, 'nuevaVenta.html', context)
 
 def productos_por_categoria(request, categoria_id):
     productos = ProductoInterno.objects.filter(cat_producto_id=categoria_id)
@@ -239,35 +170,6 @@ def guardar_detalles_factura(request):
     
     return JsonResponse({'success': False})
 
-
-
-
-
-# def consulta_productos(request):
-#     if request.method == 'GET' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
-#         categoria_id = request.GET.get('categoriaId')
-#         productos_internos = ProductoInterno.objects.filter(cat_producto_id=categoria_id)
-#         productos_data = []
-    
-#         for producto_interno in productos_internos:
-#             producto_data = {
-#                 'descripcion': producto_interno.descripcion,
-#                 'ingredientes': producto_interno.ingredientes,
-#                 'proveedor': producto_interno.proveedor.proveedor,
-#                 'precio_p': str(producto_interno.precio_p),
-#                 'precio_m': str(producto_interno.precio_m),
-#                 'precio_g': str(producto_interno.precio_g),
-#             }
-#             productos_data.append(producto_data)
-        
-#         print(productos_data)
-#         return JsonResponse({'productosInternos': productos_data})
-
-#     # Si no es una solicitud AJAX o no es una solicitud GET, puedes devolver un error o redirigir a otra página
-#     return JsonResponse({'error': 'Invalid request'})
-
-
-
 def consulta_productos(request):
     if request.method == 'GET' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
         categoria_id = request.GET.get('categoriaId')
@@ -299,6 +201,7 @@ def consulta_productos(request):
     # Si no es una solicitud AJAX o no es una solicitud GET, puedes devolver un error o redirigir a otra página
     return JsonResponse({'error': 'Invalid request'})
 
+#Para el boton despachar de la plantilla detalle_factura cada vez q hagamos click en despachar se cambiara de false a true
 def despachar_producto(request, detalle_id):
     detalle = DetalleFactura.objects.get(id=detalle_id)
     detalle.status = True
@@ -312,8 +215,9 @@ def despachar_producto(request, detalle_id):
     response['Expires'] = '0'
 
     return response
-
+#detalle factura para agrupar por pedido
 def detalle_factura(request):
+    #traemos todos los datos de detalleFactura cuyo status sea false y lo ordemos por numero de pedido
     detalles = DetalleFactura.objects.filter(status=False).order_by('pedido__id')
     print(detalles)
     detalles_por_pedido = {}

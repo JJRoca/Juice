@@ -2,8 +2,6 @@ from django.urls import path
 from . import views
 urlpatterns = [
     # path('importacionFactura/',views.importar),
-    # path('venta/', views.venta, name='nueva_venta'),
-    path('venta/', views.venta, name='venta'),
     path('productos/categoria/<int:categoria_id>/', views.productos_por_categoria, name='productos_por_categoria'),
     path('inicio123/', views.index, name='venta'),
 
