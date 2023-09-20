@@ -200,9 +200,7 @@ $(document).ready(function() {
                 return;
             }
         }
-
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
         // Función para actualizar la tabla de detalles en la plantilla
         function actualizarTablaDetalles(detalles) {
             var tabla = $('#tabla-detalles_pedido');
